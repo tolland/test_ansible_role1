@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 sets=(
     "2.11.0 rockylinux:8"
     "2.12.0 rockylinux:9"
@@ -21,6 +23,6 @@ for set in "${sets[@]}"; do
     --build-arg ANSIBLE_VERSION=$ver \
     -t test1-$ver
 
-  docker run --rm -it test1-$ver bash -c "ansible-playbook playbook.yml"
+  docker run --rm -it test1-$ver bash -c "ansible-playbook playbook.yml" || printf "test failed\n"
 
 done
