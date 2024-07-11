@@ -1,0 +1,7 @@
+
+.venv
+venv
+build
+run
+dist
+cache

@@ -1,0 +1,7 @@
+---
+
+- tags: [ test-install-linux ]
+  block:
+    - name: install test packages
+      package:
+        name: wget

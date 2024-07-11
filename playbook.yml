@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  remote_user: root
+  tasks:
+    - name: show python version
+      command: python3 --version
+      register: python_version
+
+    - name: debug python version
+      debug:
+        var: python_version
+
+    - name: ansible_version
+      debug:
+        var: ansible_version
+
+    - name: run the role
+      include_role:
+        name: role

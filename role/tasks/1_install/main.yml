@@ -1,0 +1,18 @@
+---
+
+- tags: [ test-install ]
+  block:
+    - name: call the distro specific tasks
+      tags: always
+      include_tasks: "{{ include_install_tasks }}"
+      with_first_found:
+      - files:
+          - "{{ ansible_distribution }}-\
+              {{ ansible_distribution_version }}.yml"
+          - "{{ ansible_distribution }}-\
+              {{ ansible_distribution_major_version }}.yml"
+          - "{{ ansible_distribution }}.yml"
+          - "{{ ansible_os_family }}.yml"
+          - "{{ ansible_system }}.yml"
+      loop_control:
+        loop_var: include_install_tasks

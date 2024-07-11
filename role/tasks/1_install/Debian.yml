@@ -1,0 +1,8 @@
+---
+
+- tags: [ test-install-debian ]
+  block:
+    - name: install packages
+      package:
+        name:
+          - wget

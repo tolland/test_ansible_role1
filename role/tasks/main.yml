@@ -1,0 +1,33 @@
+---
+
+- tags: [ test1 ]
+  block:
+    - name: Collect only minimal facts
+      tags: always
+      when: >
+        ansible_distribution is not defined or
+        ansible_default_ipv4 is not defined
+      ansible.builtin.setup:
+        gather_subset:
+          - min
+          - network
+
+    - name: install packages
+      tags: always
+      include_tasks: 1_install/main.yml
+
+    # - name: configure munin
+    #   tags: always
+    #   include_tasks: 2_configure/main.yml
+
+    # - name: start munin service
+    #   tags: always
+    #   include_tasks: 3_service/main.yml
+
+    #  do stuff after the service has started
+    # - name: configure post start tasks
+    #   tags: always
+    #   include_tasks: 4_post/main.yml
+
+    - name: Flush handlers
+      meta: flush_handlers
