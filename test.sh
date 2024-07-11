@@ -7,6 +7,7 @@ sets=(
     "2.14.0 rockylinux:9"
     "2.15.0 fedora:40"
     "2.16.0 fedora:40"
+    "2.17.0 fedora:40"
 )
 
 for set in "${sets[@]}"; do
