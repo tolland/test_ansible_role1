@@ -1,25 +1,25 @@
 #!/bin/bash
 
 sets=(
-    "2.11.10 rockylinux:8 arg1_3"
-    "2.12.10 rockylinux:9 arg1_3"
-    "2.13.0 rockylinux:9 arg1_3"
-    "2.14.0 rockylinux:9 arg1_3"
-    "2.15.0 fedora:40 arg1_3"
-    "2.16.0 fedora:40 arg1_3"
+    "2.11.0 rockylinux:8"
+    "2.12.0 rockylinux:9"
+    "2.13.0 rockylinux:9"
+    "2.14.0 rockylinux:9"
+    "2.15.0 fedora:40"
+    "2.16.0 fedora:40"
 )
 
 for set in "${sets[@]}"; do
 
-  read -r ver image arg3 <<< "$set"
+  read -r ver image <<< "$set"
 
   printf "testing ansible version %s with image %s\n" $ver $image
 
-  docker build . \
+  docker build -q . \
     --build-arg MYAPP_IMAGE=$image \
     --build-arg ANSIBLE_VERSION=$ver \
     -t test1-$ver
 
-  docker run --rm -it test1-$ver bash -c "ANSIBLE_COMMAND_WARNINGS=false ANSIBLE_DEPRECATION_WARNINGS=false ANSIBLE_PYTHON_INTERPRETER=auto_silent ANSIBLE_STDOUT_CALLBACK=community.general.dense ansible-playbook playbook.yml"
+  docker run --rm -it test1-$ver bash -c "ansible-playbook playbook.yml"
 
 done

@@ -19,3 +19,6 @@ RUN set -eux; \
 COPY role /app/role
 COPY playbook.yml /app
 
+ENV ANSIBLE_COMMAND_WARNINGS=false
+ENV ANSIBLE_DEPRECATION_WARNINGS=false
+ENV PYTHONWARNINGS="ignore::DeprecationWarning"
